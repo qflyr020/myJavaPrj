@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <typeAliases>
+        <typeAlias alias="User" type="com.mybatis.model.User"/>
+        <typeAlias alias="Article" type="com.mybatis.model.Article"/>
+    </typeAliases>
+
+    <!--  这个别名非常重要，你在 具体的类的映射中，比如User.xml 中 resultType 就是对应这里的。
+    	      要保持一致，当然这里的 resultType 还有另外单独的定义方式，后面再说。 -->
+
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://127.0.0.1:3306/test" />
+                <property name="username" value="root"/>
+                <property name="password" value="000"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!-- 映射的类的xml配置文件 -->
+    <mappers>
+        <mapper resource="User.xml"/>
+    </mappers>
+</configuration>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 第一种测试用的映射 -->
+
+<!--<mapper namespace="com.mybatis.models.UserMapper">
+	 <typeAlias alias="User" type="com.yihaomen.mybatis.model.User"/>
+		这个别名非常重要，你在 具体的类的映射中，
+		比如User.xml 中 resultType 就是对应这里的。
+		要保持一致，当然这里的 resultType 还有另外单独的定义方式，后面再说。
+    <select id="selectUserByID" parameterType="int" resultType="User">
+        select * from user where id = #{id}
+    </select>
+</mapper>-->
+
+<!-- 第二种测试用的映射：使用接口 -->
+<mapper namespace="com.mybatis.inter.IUserOperation">
+	<select id="selectUserByID" parameterType="int" resultType="User">
+        select * from user where id = #{id}
+    </select>
+</mapper>
+
+<!--
+<mapper namespace="com.mybatis.inter.IUserOperation">-->
+<!-- 为了返回list 类型而定义的returnMap
+<resultMap type="User" id="resultListUser">
+    <id column="id" property="id" />
+    <result column="userName" property="userName" />
+    <result column="userAge" property="userAge" />
+    <result column="userAddress" property="userAddress" />
+</resultMap> -->
+
+<!-- 返回list 的select 语句，注意 resultMap 的值是指向前面定义好的
+
+<select id="selectUsers" parameterType="string" resultMap="resultListUser">
+    select * from user where userName like #{userName}
+</select>
+</mapper>
+-->
+
+
+<!--执行增加操作的SQL语句。id和parameterType
+       分别与IUserOperation接口中的addUser方法的名字和
+       参数类型一致。以#{name}的形式引用Student参数
+       的name属性，MyBatis将使用反射读取Student参数
+       的此属性。#{name}中name大小写敏感。引用其他
+       的gender等属性与此一致。seGeneratedKeys设置
+       为"true"表明要MyBatis获取由数据库自动生成的主
+       键；keyProperty="id"指定把获取到的主键值注入
+       到Student的id属性-->
+<!--
+<mapper namespace="com.mybatis.inter.IUserOperation">
+    <insert id="addUser" parameterType="User"
+        useGeneratedKeys="true" keyProperty="id">
+        insert into user(userName,userAge,userAddress)
+             values(#{userName},#{userAge},#{userAddress})
+    </insert>
+</mapper>-->
+
+
+<!--
+<mapper namespace="com.mybatis.inter.IUserOperation">
+
+
+    &lt;!&ndash; 通过id查询user信息 &ndash;&gt;
+    <select id="selectUserByID" parameterType="int" resultType="User">
+        select * from user where id = #{id}
+    </select>
+
+    &lt;!&ndash; 为了返回list 类型而定义的returnMap &ndash;&gt;
+    <resultMap type="User" id="resultListUser">
+        <id column="id" property="id" />
+        <result column="userName" property="userName" />
+        <result column="userAge" property="userAge" />
+        <result column="userAddress" property="userAddress" />
+    </resultMap>
+    &lt;!&ndash; 返回list 的select 语句，注意 resultMap 的值是指向前面定义好的 &ndash;&gt;
+    <select id="selectUsers" parameterType="string" resultMap="resultListUser">
+        select * from user where userName like #{userName}
+    </select>
+
+    &lt;!&ndash; 增加数据 &ndash;&gt;
+    <insert id="addUser" parameterType="User"
+            useGeneratedKeys="true" keyProperty="id">
+        insert into user(userName,userAge,userAddress)
+        values(#{userName},#{userAge},#{userAddress})
+    </insert>
+
+    &lt;!&ndash; 更新数据 &ndash;&gt;
+    <update id="updateUser" parameterType="User" >
+        update user set userName=#{userName},userAge=#{userAge},userAddress=#{userAddress} where id=#{id}
+    </update>
+
+    &lt;!&ndash; 通过id删除数据 &ndash;&gt;
+    <delete id="deleteUser" parameterType="int">
+        delete from user where id=#{id}
+    </delete>
+    &lt;!&ndash; 通过userName(名字)删除数据 &ndash;&gt;
+    <delete id="deleteUser2" parameterType="string">
+        delete from user where userName=#{userName}
+    </delete>
+
+
+    &lt;!&ndash; 多对一 ：第一种方式&ndash;&gt;
+    &lt;!&ndash; User 联合文章进行查询 方法之二的配置 (多对一的方式) &ndash;&gt;
+    &lt;!&ndash; 可以复用我们前面已经定义好的 resultMap ,前面我们定义过一个 resultListUser &ndash;&gt;
+    <resultMap id="resultUserArticleList" type="Article">
+        <id property="id" column="aid" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <association property="user" javaType="User" resultMap="resultListUser" />
+    </resultMap>
+    <select id="getUserArticles" parameterType="int" resultMap="resultUserArticleList">
+        select user.id,user.userName,user.userAddress,article.id aid,article.title,article.content from user,article
+        where user.id=article.userid and user.id=#{id}
+    </select>
+
+
+    &lt;!&ndash; 多对一 ：第二种方式&ndash;&gt;
+    &lt;!&ndash; User 联合文章进行查询 方法之一的配置 (多对一的方式)  &ndash;&gt;
+    <resultMap id="resultUserArticleList2" type="Article">
+        <id property="id" column="aid" />
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+
+        <association property="user" javaType="User">
+            <id property="id" column="id" />
+            <result property="userName" column="userName" />
+            <result property="userAddress" column="userAddress" />
+        </association>
+    </resultMap>
+    <select id="getUserArticles2" parameterType="int" resultMap="resultUserArticleList2">
+        select user.id,user.userName,user.userAddress,article.id aid,article.title,article.content from user,article
+        where user.id=article.userid and user.id=#{id}
+    </select>
+
+</mapper>-->
