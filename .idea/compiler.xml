@@ -14,7 +14,7 @@
     <bytecodeTargetLevel>
       <module name="Basics" target="1.5" />
       <module name="jdbc" target="1.5" />
-      <module name="webSocket" target="1.5" />
+      <module name="webSocket" target="1.6" />
     </bytecodeTargetLevel>
   </component>
 </project>
