@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Basics" />
         <module name="jdbc" />
+        <module name="webSocket" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Basics" target="1.5" />
       <module name="jdbc" target="1.5" />
+      <module name="webSocket" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>
