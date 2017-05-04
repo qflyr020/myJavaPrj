@@ -39,6 +39,7 @@
     </properties>
   </component>
   <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/security" />
     <file type="web" url="file://$PROJECT_DIR$/webSocket" />
   </component>
   <component name="MavenProjectsManager">
@@ -47,6 +48,7 @@
         <option value="$PROJECT_DIR$/jdbc/pom.xml" />
         <option value="$PROJECT_DIR$/Basics/pom.xml" />
         <option value="$PROJECT_DIR$/webSocket/pom.xml" />
+        <option value="$PROJECT_DIR$/security/pom.xml" />
       </list>
     </option>
   </component>

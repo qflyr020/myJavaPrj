@@ -9,6 +9,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/generics" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/transaction" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/regular expression" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
